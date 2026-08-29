@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -91,23 +92,15 @@ export default function Navbar() {
       >
         <nav className="container-section flex items-center justify-between gap-4" ref={dropdownRef}>
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="flex items-center gap-2">
-              <div
-                className="w-9 h-9 rounded-lg flex items-center justify-center font-black text-white text-sm"
-                style={{ background: 'linear-gradient(135deg, #DC1E13, #002798)' }}
-              >
-                ID
-              </div>
-              <div className="leading-tight">
-                <span className="block font-black text-[15px]" style={{ color: '#002798' }}>
-                  IDEA
-                </span>
-                <span className="block text-[9px] font-semibold tracking-widest" style={{ color: '#F4A019' }}>
-                  INSTITUT
-                </span>
-              </div>
-            </div>
+          <Link href="/" className="flex items-center shrink-0">
+            <Image
+              src="/logo-IDEA-HD-fixed-600x96.svg"
+              alt="IDEA Institut"
+              width={160}
+              height={26}
+              priority
+              className="h-8 w-auto"
+            />
           </Link>
 
           {/* Desktop Menu */}
@@ -227,9 +220,15 @@ export default function Navbar() {
         >
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-            <span className="font-black text-navy text-lg" style={{ color: '#002798' }}>
-              Menu
-            </span>
+            <Link href="/">
+              <Image
+                src="/logo-IDEA-HD-fixed-600x96.svg"
+                alt="IDEA Institut"
+                width={120}
+                height={20}
+                className="h-6 w-auto"
+              />
+            </Link>
             <button onClick={() => setMobileOpen(false)} className="p-1 text-gray-500 hover:text-gray-700">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

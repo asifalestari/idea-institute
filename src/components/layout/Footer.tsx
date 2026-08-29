@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { contactInfo } from '@/data/team'
 
@@ -89,20 +90,15 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             {/* Logo */}
-            <div className="flex items-center gap-2 mb-4">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-white"
-                style={{ background: 'linear-gradient(135deg, #DC1E13, #F4A019)' }}
-              >
-                <span className="text-sm">ID</span>
-              </div>
-              <div className="leading-tight">
-                <span className="block font-black text-xl text-white">IDEA Institut</span>
-                <span className="block text-[10px] font-semibold tracking-widest" style={{ color: '#F4A019' }}>
-                  LANGUAGE STUDY & TRAVEL
-                </span>
-              </div>
-            </div>
+            <Link href="/" className="flex items-center mb-4">
+              <Image
+                src="/logo-IDEA-HD-fixed-600x96.svg"
+                alt="IDEA Institut"
+                width={180}
+                height={29}
+                className="h-9 w-auto brightness-0 invert"
+              />
+            </Link>
 
             <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.7)' }}>
               Institut De EurnesiA — menjamin keberhasilan studi, studi sambil kerja, dan pelatihan vokasi di
