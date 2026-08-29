@@ -96,7 +96,7 @@ export default function Footer() {
                 alt="IDEA Institut"
                 width={180}
                 height={29}
-                className="h-9 w-auto brightness-0 invert"
+                className="h-9 w-auto"
               />
             </Link>
 
