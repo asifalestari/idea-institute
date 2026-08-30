@@ -31,15 +31,21 @@ export interface CurriculumLevel {
 export interface CourseLangData {
   slug: string
   name: string               // "Bahasa Inggris"
+  nameEn?: string
   nativeName: string         // "English"
   flagEmoji: string
   tagline: string
+  taglineEn?: string
   heroImage: string
   stats: Stat[]
+  statsEn?: Stat[]
   levels: string[]
   curriculum: CurriculumLevel[]
+  curriculumEn?: CurriculumLevel[]
   tutors: Tutor[]
+  tutorsEn?: Tutor[]
   testimonials: Testimonial[]
+  testimonialsEn?: Testimonial[]
 }
 
 export interface ProgramBenefit {
@@ -60,30 +66,6 @@ export interface ProgramStep {
   desc: string
 }
 
-export interface ProgramData {
-  slug: string
-  title: string
-  subtitle: string
-  heroImage: string
-  benefits: ProgramBenefit[]
-  modules: ProgramModule[]
-  stats: Stat[]
-  steps?: ProgramStep[]
-  testimonials: Testimonial[]
-}
-
-export interface CountryData {
-  slug: string
-  name: string
-  heroImage: string
-  description: string
-  stats: Stat[]
-  requirements: string[]
-  steps: ProgramStep[]
-  universities: string[]
-  testimonials: Testimonial[]
-}
-
 export interface TeamMember {
   name: string
   role: string
@@ -92,18 +74,42 @@ export interface TeamMember {
   socials?: {
     linkedin?: string
     instagram?: string
+    twitter?: string
   }
 }
 
 export interface Partner {
   name: string
   logo: string
-  category: 'university' | 'language' | 'company' | 'government'
+  category: string
   country?: string
 }
 
-export interface NavItem {
-  label: string
-  href: string
-  children?: NavItem[]
+export interface CountryData {
+  name: string
+  slug: string
+  flag?: string
+  headline?: string
+  desc?: string
+  description?: string
+  heroImage?: string
+  benefits?: string[]
+  requirements?: string[]
+  stats: Stat[]
+  steps?: ProgramStep[]
+  universities?: string[]
+  testimonials?: Testimonial[]
+}
+
+export interface ProgramData {
+  slug: string
+  title: string
+  subtitle: string
+  desc?: string
+  heroImage?: string
+  stats: Stat[]
+  benefits: ProgramBenefit[]
+  modules?: ProgramModule[]
+  steps?: ProgramStep[]
+  testimonials?: Testimonial[]
 }

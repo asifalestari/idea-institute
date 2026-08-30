@@ -30,6 +30,8 @@ export const metadata: Metadata = {
   },
 }
 
+import { LanguageProvider } from '@/context/LanguageContext'
+
 export default function RootLayout({
   children,
 }: {
@@ -38,9 +40,11 @@ export default function RootLayout({
   return (
     <html lang="id" className={poppins.variable}>
       <body className="font-sans antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   )

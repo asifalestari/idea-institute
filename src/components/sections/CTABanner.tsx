@@ -38,8 +38,8 @@ export default function CTABanner({
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal delay={100}>
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a1847] via-[#002798] to-[#001759] text-white p-8 sm:p-12 lg:p-14 shadow-2xl border border-blue-900/50">
+        <Reveal delay={80}>
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a1847] via-[#002798] to-[#001759] text-white p-8 sm:p-12 lg:p-16 shadow-2xl border border-blue-900/50">
             
             {/* Ambient Lighting Gradients */}
             <div
@@ -51,12 +51,12 @@ export default function CTABanner({
               style={{ background: 'radial-gradient(circle, #DC1E13 0%, transparent 70%)' }}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
               
               {/* Left Column: Text & Call to Action (Span 7) */}
               <div className="lg:col-span-7 space-y-6 text-left">
                 {eyebrow && (
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-xs font-extrabold uppercase tracking-widest text-[#F4A019]">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-xs font-extrabold uppercase tracking-widest text-[#F4A019]">
                     <span className="w-2 h-2 rounded-full bg-[#F4A019] animate-pulse" />
                     {eyebrow}
                   </div>
@@ -71,25 +71,25 @@ export default function CTABanner({
                 </p>
 
                 {/* Trust Points */}
-                <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-blue-200/90 pt-1">
-                  <div className="flex items-center gap-1.5">
+                <div className="flex flex-wrap items-center gap-6 text-xs font-semibold text-blue-200/90 pt-2">
+                  <div className="flex items-center gap-2">
                     <span className="text-[#F4A019]">✓</span> 100% Free Initial Consultation
                   </div>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <span className="text-[#F4A019]">✓</span> Fast 1-on-1 Guidance
                   </div>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <span className="text-[#F4A019]">✓</span> Certified Principals
                   </div>
                 </div>
 
-                {/* Button (Standard 16px border-radius) */}
-                <div className="pt-3 flex flex-wrap items-center gap-4">
+                {/* Button (Multiples of 4: px-8=32px, py-4=16px) */}
+                <div className="pt-4 flex flex-wrap items-center gap-4">
                   <a
                     href={displayHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-sm font-extrabold text-gray-950 bg-[#F4A019] hover:bg-[#e08f10] shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+                    className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-sm font-extrabold text-gray-950 bg-[#F4A019] hover:bg-[#e08f10] shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
                   >
                     <span>{displayLabel}</span>
                     <svg className="w-4 h-4 text-gray-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,7 +109,7 @@ export default function CTABanner({
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-5">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
                       <div className="bg-black/40 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 text-xs font-semibold text-white">
                         🚀 5.000+ Alumni Studying &amp; Working Worldwide
                       </div>
