@@ -30,7 +30,7 @@ export const professionalData: ProgramData[] = [
         icon: '🌐',
         title: 'Jaringan Global',
         desc: 'Bergabung dengan komunitas alumni IDEA yang tersebar di 10+ negara.',
-        chipColor: 'chip-yellow',
+        chipColor: 'chip-secondary',
       },
     ],
     modules: [
@@ -112,7 +112,7 @@ export const professionalData: ProgramData[] = [
         icon: '🏆',
         title: 'Persiapan Ujian',
         desc: 'Latihan soal IELTS Academic, TOEFL iBT, TestDaF, DELF — fokus pada komponen reading & writing.',
-        chipColor: 'chip-yellow',
+        chipColor: 'chip-secondary',
       },
     ],
     modules: [
@@ -194,7 +194,7 @@ export const professionalData: ProgramData[] = [
         icon: '📐',
         title: 'Applied Mathematics',
         desc: 'Matematika terapan untuk kebutuhan studi teknik, ekonomi, dan sains di luar negeri.',
-        chipColor: 'chip-yellow',
+        chipColor: 'chip-secondary',
       },
     ],
     modules: [

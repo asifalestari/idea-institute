@@ -46,7 +46,7 @@ export interface ProgramBenefit {
   icon: string
   title: string
   desc: string
-  chipColor: 'chip-navy' | 'chip-primary' | 'chip-secondary' | 'chip-yellow'
+  chipColor: 'chip-navy' | 'chip-primary' | 'chip-secondary'
 }
 
 export interface ProgramModule {

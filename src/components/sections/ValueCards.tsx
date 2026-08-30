@@ -13,14 +13,12 @@ const chipBg: Record<string, string> = {
   'chip-navy': '#002798',
   'chip-primary': '#DC1E13',
   'chip-secondary': '#F4A019',
-  'chip-yellow': '#FFF500',
 }
 
 const chipText: Record<string, string> = {
   'chip-navy': '#ffffff',
   'chip-primary': '#ffffff',
   'chip-secondary': '#ffffff',
-  'chip-yellow': '#002798',
 }
 
 export default function ValueCards({ eyebrow, title, highlight, subtitle, cards }: ValueCardsProps) {
@@ -62,7 +60,7 @@ export default function ValueCards({ eyebrow, title, highlight, subtitle, cards 
                 </h3>
                 <p
                   className="text-sm leading-relaxed"
-                  style={{ color: card.chipColor === 'chip-yellow' ? 'rgba(0,39,152,0.75)' : 'rgba(255,255,255,0.8)' }}
+                  style={{ color: 'rgba(255,255,255,0.8)' }}
                 >
                   {card.desc}
                 </p>

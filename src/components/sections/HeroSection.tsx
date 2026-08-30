@@ -1,219 +1,189 @@
-import Link from 'next/link'
-import FloatingCard from '@/components/ui/FloatingCard'
-import { contactInfo } from '@/data/team'
+'use client'
 
-interface HeroSectionProps {
-  eyebrow?: string
-  title: string
-  titleHighlight?: string   // word to highlight in primary color
-  subtitle: string
-  primaryCTA?: { label: string; href: string; external?: boolean }
-  secondaryCTA?: { label: string; href: string }
-  floatingCards?: { emoji: string; title: string; subtitle: string; position: 'top-left' | 'bottom-right' | 'top-right' }[]
-  languageChips?: string[]
-  badge?: string
-  variant?: 'home' | 'page'  // home = full height, page = compact
+import Image from 'next/image'
+import Link from 'next/link'
+
+interface HeroStat {
+  value: string
+  label: string
 }
 
-const defaultPrimary = { label: 'Konsultasi Gratis', href: contactInfo.whatsapp, external: true }
-const defaultSecondary = { label: 'Lihat Program', href: '/course' }
+interface HeroSectionProps {
+  /** Small pill label di atas headline, warna merah */
+  badgePill?: string
+  /** Baris headline — bisa array string untuk multi-line styling */
+  lines: string[]
+  /** Kata yang di-highlight merah (harus ada dalam salah satu baris) */
+  highlight?: string
+  subtitle: string
+  primaryCTA: { label: string; href: string; external?: boolean }
+  secondaryCTA?: { label: string; href: string; external?: boolean }
+  /** Path to photo (relative to /public) — ditampilkan di kolom kanan */
+  heroImage?: string
+  heroImageAlt?: string
+  /** Stats di bawah CTA */
+  stats?: HeroStat[]
+  /** home = min-h-screen; page = py-20 lebih compact */
+  variant?: 'home' | 'page'
+}
 
 export default function HeroSection({
-  eyebrow,
-  title,
-  titleHighlight,
+  badgePill,
+  lines,
+  highlight,
   subtitle,
-  primaryCTA = defaultPrimary,
-  secondaryCTA = defaultSecondary,
-  floatingCards = [],
-  languageChips,
-  badge,
+  primaryCTA,
+  secondaryCTA,
+  heroImage,
+  heroImageAlt = 'IDEA Institut',
+  stats = [],
   variant = 'home',
 }: HeroSectionProps) {
   const isHome = variant === 'home'
 
-  // Render title with optional highlight
-  const renderTitle = () => {
-    if (!titleHighlight) return <>{title}</>
-    const idx = title.indexOf(titleHighlight)
-    if (idx === -1) return <>{title}</>
+  const renderLine = (line: string, i: number) => {
+    if (!highlight || !line.includes(highlight)) {
+      return <span key={i} className="block">{line}</span>
+    }
+    const idx = line.indexOf(highlight)
     return (
-      <>
-        {title.slice(0, idx)}
-        <span style={{ color: '#DC1E13' }}>{titleHighlight}</span>
-        {title.slice(idx + titleHighlight.length)}
-      </>
+      <span key={i} className="block">
+        {line.slice(0, idx)}
+        <span style={{ color: '#DC1E13' }}>{highlight}</span>
+        {line.slice(idx + highlight.length)}
+      </span>
     )
   }
 
   return (
     <section
-      className={`relative overflow-hidden ${isHome ? 'min-h-screen' : 'py-24 md:py-32'} flex items-center`}
-      style={{ paddingTop: '5rem' }}
+      className={`relative overflow-hidden bg-white ${isHome ? 'min-h-screen' : 'min-h-[60vh]'} flex`}
+      style={{ paddingTop: '72px' }}  /* navbar height */
     >
-      {/* Background decoration */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-      >
-        {/* Top-right blob */}
-        <div
-          className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-5"
-          style={{ background: '#002798' }}
-        />
-        {/* Bottom-left blob */}
-        <div
-          className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full opacity-5"
-          style={{ background: '#DC1E13' }}
-        />
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(0deg, #002798, #002798 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, #002798, #002798 1px, transparent 1px, transparent 60px)',
-          }}
-        />
-      </div>
+      <div className="w-full flex flex-col lg:flex-row">
 
-      <div className="container-section relative z-10 w-full">
-        <div className={`grid ${isHome ? 'lg:grid-cols-2' : 'lg:grid-cols-2'} gap-12 lg:gap-16 items-center`}>
-          {/* ── Left Column: Text ── */}
-          <div className="fade-up">
-            {/* Eyebrow */}
-            {eyebrow && (
-              <p className="text-xs font-bold tracking-widest uppercase mb-4" style={{ color: '#F4A019' }}>
-                {eyebrow}
-              </p>
-            )}
+        {/* ── Left: Text Content ── */}
+        <div className="flex-1 flex items-center px-6 md:px-12 lg:px-16 xl:px-24 py-16 lg:py-20">
+          <div className="max-w-xl w-full">
 
-            {/* Badge */}
-            {badge && (
-              <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-5 text-sm font-semibold"
-                style={{ background: 'rgba(220,30,19,0.08)', color: '#DC1E13', border: '1px solid rgba(220,30,19,0.2)' }}>
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" style={{ background: '#DC1E13' }} />
-                {badge}
+            {/* Pill Badge */}
+            {badgePill && (
+              <div className="inline-flex items-center gap-2 mb-5">
+                <span
+                  className="px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase text-white"
+                  style={{ background: '#DC1E13' }}
+                >
+                  {badgePill}
+                </span>
               </div>
             )}
 
-            {/* Title */}
+            {/* Headline */}
             <h1
               className="font-black leading-tight mb-5"
               style={{
-                fontSize: 'clamp(2rem, 5vw, 3.75rem)',
+                fontSize: 'clamp(2.2rem, 5vw, 4rem)',
                 color: '#002798',
-                lineHeight: '1.08',
+                lineHeight: 1.05,
               }}
             >
-              {renderTitle()}
+              {lines.map((line, i) => renderLine(line, i))}
             </h1>
 
             {/* Subtitle */}
             <p
-              className="text-base md:text-lg leading-relaxed mb-6 max-w-lg"
-              style={{ color: '#5a6a8a' }}
+              className="text-base md:text-lg leading-relaxed mb-8"
+              style={{ color: '#5a6a8a', maxWidth: '480px' }}
             >
               {subtitle}
             </p>
 
-            {/* Language Chips */}
-            {languageChips && (
-              <div className="flex flex-wrap gap-2 mb-7">
-                {languageChips.map((lang) => (
-                  <span
-                    key={lang}
-                    className="px-3 py-1 rounded-full text-sm font-semibold border"
-                    style={{ background: 'rgba(0,39,152,0.06)', color: '#002798', borderColor: 'rgba(0,39,152,0.15)' }}
-                  >
-                    {lang}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4">
+            {/* CTA Buttons (Standard rounded-2xl / 16px) */}
+            <div className="flex flex-wrap gap-3 mb-10">
               {primaryCTA.external ? (
                 <a
                   href={primaryCTA.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl text-xs font-bold text-white transition-all hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg"
+                  style={{ background: '#DC1E13' }}
                 >
                   {primaryCTA.label}
                 </a>
               ) : (
-                <Link href={primaryCTA.href} className="btn-primary">
+                <Link
+                  href={primaryCTA.href}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl text-xs font-bold text-white transition-all hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg"
+                  style={{ background: '#DC1E13' }}
+                >
                   {primaryCTA.label}
                 </Link>
               )}
 
               {secondaryCTA && (
-                <Link href={secondaryCTA.href} className="btn-secondary">
-                  {secondaryCTA.label}
-                </Link>
+                secondaryCTA.external ? (
+                  <a
+                    href={secondaryCTA.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl text-xs font-bold border-2 transition-all hover:-translate-y-0.5 active:translate-y-0 hover:shadow-md"
+                    style={{ color: '#002798', borderColor: '#002798', background: 'transparent' }}
+                  >
+                    {secondaryCTA.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={secondaryCTA.href}
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl text-xs font-bold border-2 transition-all hover:-translate-y-0.5 active:translate-y-0 hover:shadow-md"
+                    style={{ color: '#002798', borderColor: '#002798', background: 'transparent' }}
+                  >
+                    {secondaryCTA.label}
+                  </Link>
+                )
               )}
             </div>
-          </div>
 
-          {/* ── Right Column: Visual ── */}
-          <div className="relative flex items-center justify-center">
-            {/* Main image placeholder with frame */}
-            <div className="relative">
-              {/* Yellow decorative frame */}
-              <div
-                className="absolute -top-4 -left-4 w-full h-full rounded-3xl z-0"
-                style={{ background: '#FFF500', opacity: 0.4 }}
-              />
-
-              {/* Main visual box */}
-              <div
-                className="relative z-10 rounded-3xl overflow-hidden"
-                style={{
-                  width: 'clamp(260px, 40vw, 480px)',
-                  height: 'clamp(280px, 45vw, 520px)',
-                  background: 'linear-gradient(135deg, #002798 0%, #1a3db5 50%, #DC1E13 100%)',
-                }}
-              >
-                {/* Decorative content inside */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-8 text-center">
-                  <div className="text-6xl mb-4">🌏</div>
-                  <p className="font-black text-2xl mb-2">IDEA Institut</p>
-                  <p className="text-sm opacity-75">Language Study & Travel</p>
-                  <div className="mt-6 grid grid-cols-3 gap-3 w-full max-w-[260px]">
-                    {['🇬🇧', '🇩🇪', '🇪🇸', '🇫🇷', '🇨🇳', '🇯🇵'].map((flag, i) => (
-                      <div
-                        key={i}
-                        className="aspect-square rounded-xl flex items-center justify-center text-2xl"
-                        style={{ background: 'rgba(255,255,255,0.15)' }}
-                      >
-                        {flag}
-                      </div>
-                    ))}
+            {/* Stats Row */}
+            {stats.length > 0 && (
+              <div className="flex flex-wrap gap-x-8 gap-y-4 pt-6 border-t border-gray-100">
+                {stats.map((stat) => (
+                  <div key={stat.label}>
+                    <p className="font-black text-2xl leading-none" style={{ color: '#002798' }}>
+                      {stat.value}
+                    </p>
+                    <p className="text-xs mt-1" style={{ color: '#5a6a8a' }}>
+                      {stat.label}
+                    </p>
                   </div>
-                </div>
+                ))}
               </div>
-            </div>
-
-            {/* Floating Cards */}
-            {floatingCards.map((card, i) => {
-              const posClasses: Record<string, string> = {
-                'top-left': 'absolute -left-6 top-8 z-20',
-                'top-right': 'absolute -right-6 top-8 z-20',
-                'bottom-right': 'absolute -right-6 bottom-12 z-20',
-              }
-              return (
-                <FloatingCard
-                  key={i}
-                  emoji={card.emoji}
-                  title={card.title}
-                  subtitle={card.subtitle}
-                  className={posClasses[card.position]}
-                  style={{ animationDelay: `${i * 0.5}s` } as React.CSSProperties}
-                />
-              )
-            })}
+            )}
           </div>
+        </div>
+
+        {/* ── Right: Hero Image ── */}
+        <div className="relative w-full lg:w-[48%] xl:w-[52%] min-h-[340px] lg:min-h-0 overflow-hidden">
+          {heroImage ? (
+            <Image
+              src={heroImage}
+              alt={heroImageAlt}
+              fill
+              className="object-cover object-center"
+              priority
+              sizes="(max-width: 1024px) 100vw, 52vw"
+            />
+          ) : (
+            /* Fallback gradient jika tidak ada foto */
+            <div
+              className="absolute inset-0"
+              style={{ background: 'linear-gradient(135deg, #002798 0%, #1a3db5 50%, #DC1E13 100%)' }}
+            />
+          )}
+          {/* Red bottom accent bar di mobile */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-1 lg:hidden"
+            style={{ background: '#DC1E13' }}
+          />
         </div>
       </div>
     </section>

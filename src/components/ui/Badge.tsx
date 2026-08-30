@@ -1,6 +1,6 @@
 interface BadgeProps {
   children: React.ReactNode
-  variant?: 'primary' | 'secondary' | 'navy' | 'yellow' | 'green' | 'gray'
+  variant?: 'primary' | 'secondary' | 'navy' | 'green' | 'gray'
   size?: 'sm' | 'md'
   className?: string
 }
@@ -9,7 +9,6 @@ const variantStyles: Record<string, string> = {
   primary: 'bg-primary text-white',
   secondary: 'text-white',
   navy: 'text-white',
-  yellow: 'text-navy font-bold',
   green: 'bg-emerald-500 text-white',
   gray: 'bg-gray-100 text-gray-600',
 }
@@ -18,7 +17,6 @@ const variantInline: Record<string, React.CSSProperties> = {
   primary: { background: '#DC1E13' },
   secondary: { background: '#F4A019' },
   navy: { background: '#002798' },
-  yellow: { background: '#FFF500', color: '#002798' },
   green: {},
   gray: {},
 }

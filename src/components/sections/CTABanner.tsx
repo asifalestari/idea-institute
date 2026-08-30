@@ -1,86 +1,126 @@
+'use client'
+
+import Image from 'next/image'
 import Link from 'next/link'
-import { contactInfo } from '@/data/team'
+import Reveal from '@/components/ui/Reveal'
 
 interface CTABannerProps {
+  eyebrow?: string
+  headline?: string
   title?: string
+  subtext?: string
   subtitle?: string
-  primaryCTA?: { label: string; href: string }
-  secondaryCTA?: { label: string; href: string }
-  variant?: 'navy' | 'primary' | 'gradient'
+  primaryLabel?: string
+  buttonLabel?: string
+  primaryHref?: string
+  buttonHref?: string
+  showImage?: boolean
 }
 
 export default function CTABanner({
-  title = 'Siap Memulai Perjalanan Internasionalmu?',
-  subtitle = 'Konsultasikan tujuan studi dan karir Anda secara gratis dengan tim ahli IDEA Institut. Tidak ada biaya, tidak ada kewajiban.',
-  primaryCTA = { label: 'Konsultasi Gratis via WhatsApp', href: contactInfo.whatsapp },
-  secondaryCTA = { label: 'Lihat Semua Program', href: '/course' },
-  variant = 'navy',
+  eyebrow = 'WHERE WILL YOUR JOURNEY TAKE YOU?',
+  headline,
+  title,
+  subtext,
+  subtitle,
+  primaryLabel,
+  buttonLabel,
+  primaryHref,
+  buttonHref,
+  showImage = true,
 }: CTABannerProps) {
-  const bgStyle =
-    variant === 'primary'
-      ? { background: '#DC1E13' }
-      : variant === 'gradient'
-      ? { background: 'linear-gradient(135deg, #002798 0%, #DC1E13 100%)' }
-      : { background: '#002798' }
-
-  const isWhatsApp = primaryCTA.href.includes('wa.me')
+  const displayHeadline = headline || title || 'Begin Constructing Your Global Pathway Today'
+  const displaySubtext =
+    subtext || subtitle || 'Connect with an expert advisor to draft your personalized educational and career blueprint.'
+  const displayLabel = primaryLabel || buttonLabel || 'TALK TO AN ADVISOR'
+  const displayHref = primaryHref || buttonHref || 'https://wa.me/6281297654332'
 
   return (
-    <section className="py-16 md:py-20" style={bgStyle}>
-      <div className="container-section text-center">
-        {/* Decorative top accent */}
-        <div className="flex justify-center mb-6">
-          <div
-            className="w-12 h-1 rounded-full"
-            style={{ background: '#FFF500' }}
-          />
-        </div>
+    <section className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Reveal delay={100}>
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a1847] via-[#002798] to-[#001759] text-white p-8 sm:p-12 lg:p-14 shadow-2xl border border-blue-900/50">
+            
+            {/* Ambient Lighting Gradients */}
+            <div
+              className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-30 pointer-events-none blur-3xl"
+              style={{ background: 'radial-gradient(circle, #F4A019 0%, transparent 70%)' }}
+            />
+            <div
+              className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full opacity-25 pointer-events-none blur-2xl"
+              style={{ background: 'radial-gradient(circle, #DC1E13 0%, transparent 70%)' }}
+            />
 
-        <h2
-          className="font-black mb-4 leading-tight"
-          style={{
-            fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)',
-            color: '#ffffff',
-          }}
-        >
-          {title}
-        </h2>
-        <p
-          className="text-sm md:text-base mb-8 max-w-xl mx-auto leading-relaxed"
-          style={{ color: 'rgba(255,255,255,0.8)' }}
-        >
-          {subtitle}
-        </p>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center relative z-10">
+              
+              {/* Left Column: Text & Call to Action (Span 7) */}
+              <div className="lg:col-span-7 space-y-6 text-left">
+                {eyebrow && (
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-xs font-extrabold uppercase tracking-widest text-[#F4A019]">
+                    <span className="w-2 h-2 rounded-full bg-[#F4A019] animate-pulse" />
+                    {eyebrow}
+                  </div>
+                )}
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          {isWhatsApp ? (
-            <a
-              href={primaryCTA.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-white text-sm inline-flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-              </svg>
-              {primaryCTA.label}
-            </a>
-          ) : (
-            <Link href={primaryCTA.href} className="btn-white text-sm">
-              {primaryCTA.label}
-            </Link>
-          )}
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.12] tracking-tight">
+                  {displayHeadline}
+                </h2>
 
-          <Link
-            href={secondaryCTA.href}
-            className="inline-flex items-center gap-2 text-sm font-semibold border-b-2 border-white/60 text-white pb-0.5 hover:border-accent-yellow transition-colors"
-          >
-            {secondaryCTA.label}
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </Link>
-        </div>
+                <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed max-w-xl">
+                  {displaySubtext}
+                </p>
+
+                {/* Trust Points */}
+                <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-blue-200/90 pt-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[#F4A019]">✓</span> 100% Free Initial Consultation
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[#F4A019]">✓</span> Fast 1-on-1 Guidance
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[#F4A019]">✓</span> Certified Principals
+                  </div>
+                </div>
+
+                {/* Button (Standard 16px border-radius) */}
+                <div className="pt-3 flex flex-wrap items-center gap-4">
+                  <a
+                    href={displayHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-sm font-extrabold text-gray-950 bg-[#F4A019] hover:bg-[#e08f10] shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+                  >
+                    <span>{displayLabel}</span>
+                    <svg className="w-4 h-4 text-gray-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Column: Hero Image (Span 5) */}
+              {showImage && (
+                <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                  <div className="relative w-full max-w-md h-72 sm:h-80 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20 group">
+                    <Image
+                      src="/images/cta-students.jpg"
+                      alt="IDEA Students Pathway"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-5">
+                      <div className="bg-black/40 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 text-xs font-semibold text-white">
+                        🚀 5.000+ Alumni Studying &amp; Working Worldwide
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

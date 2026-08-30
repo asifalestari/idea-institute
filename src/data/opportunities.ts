@@ -163,7 +163,7 @@ export const opportunitiesPrograms: ProgramData[] = [
         icon: '🌟',
         title: 'Pengalaman Internasional',
         desc: 'Portofolio kerja internasional yang meningkatkan nilai CV Anda secara signifikan.',
-        chipColor: 'chip-yellow',
+        chipColor: 'chip-secondary',
       },
     ],
     modules: [
@@ -226,7 +226,7 @@ export const opportunitiesPrograms: ProgramData[] = [
         icon: '📈',
         title: 'Pengembangan Karir',
         desc: 'Mentoring berkelanjutan untuk pengembangan karir jangka panjang di luar negeri.',
-        chipColor: 'chip-yellow',
+        chipColor: 'chip-secondary',
       },
     ],
     modules: [
@@ -289,7 +289,7 @@ export const opportunitiesPrograms: ProgramData[] = [
         icon: '🎓',
         title: 'Sertifikat Kompetensi',
         desc: 'Sertifikat vokasi yang diakui industri di Jerman dan negara-negara OECD.',
-        chipColor: 'chip-yellow',
+        chipColor: 'chip-secondary',
       },
     ],
     modules: [
