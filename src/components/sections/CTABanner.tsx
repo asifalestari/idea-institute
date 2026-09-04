@@ -9,19 +9,20 @@ interface CTABannerProps {
   title?: string
   subtext?: string
   subtitle?: string
+  primaryLabel?: string
+  primaryHref?: string
 }
 
 export default function CTABanner({
   eyebrow = 'KONSULTASI GRATIS',
   headline,
-  title,
   subtext,
-  subtitle,
+  primaryLabel = 'Daftar Sekarang',
+  primaryHref = '#lead-form',
 }: CTABannerProps) {
-  const displayHeadline = headline || title || 'Mulai Perjalananmu Hari Ini'
+  const displayHeadline = headline || 'Mulai Perjalananmu Hari Ini'
   const displaySubtext =
     subtext ||
-    subtitle ||
     'Isi form di bawah dan tim advisor kami akan menghubungimu untuk membantu menyusun rencana pendidikan dan karier internasionalmu.'
 
   return (
