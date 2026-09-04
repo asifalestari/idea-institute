@@ -298,11 +298,9 @@ export default function VocationalCoursePage() {
 
       {/* ── 4. CTA BANNER ── */}
       <CTABanner
-        eyebrow={t.vocationalPage.ctaEyebrow}
-        headline={t.vocationalPage.ctaHeadline}
-        subtext={t.vocationalPage.ctaSubtext}
-        primaryLabel={t.common.scheduleAdvisor}
-        primaryHref="https://wa.me/6281297654332"
+        eyebrow={t.home.ctaEyebrow}
+        headline={t.home.ctaHeadline}
+        subtext={t.home.ctaSubtext}
       />
     </div>
   )

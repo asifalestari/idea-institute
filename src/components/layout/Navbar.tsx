@@ -37,12 +37,13 @@ export default function Navbar() {
     return pathname.startsWith(href)
   }
 
+  if (pathname?.startsWith('/admin')) return null
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-3' : 'bg-white py-4 border-b border-gray-100'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-3' : 'bg-white py-4 border-b border-gray-100'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo (Flush with left container margin) */}
@@ -65,9 +66,8 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-xs sm:text-sm font-semibold transition-all relative py-1 ${
-                    active ? 'text-gray-900 font-bold' : 'text-gray-600 hover:text-[#002798]'
-                  }`}
+                  className={`text-xs sm:text-sm font-semibold transition-all relative py-1 ${active ? 'text-gray-900 font-bold' : 'text-gray-600 hover:text-[#002798]'
+                    }`}
                 >
                   {item.label}
                   {active && (
@@ -112,9 +112,8 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-base font-semibold py-3 border-b border-gray-100 ${
-                  active ? 'text-[#DC1E13]' : 'text-gray-800'
-                }`}
+                className={`text-base font-semibold py-3 border-b border-gray-100 ${active ? 'text-[#DC1E13]' : 'text-gray-800'
+                  }`}
               >
                 {item.label}
               </Link>

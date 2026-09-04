@@ -56,19 +56,19 @@ const teamMembers = [
     name: 'Dr. Hendra Wijaya',
     role: 'Managing Director & Academic Founder',
     bio: '15+ years in international education management and bilateral university cooperation.',
-    img: '/images/tutor-sarah.jpg',
+    img: '/images/team-1.jpg',
   },
   {
     name: 'Markus Weber, M.Ed.',
     role: 'Head of European & German Programs',
     bio: 'Former DAAD scholar with deep expertise in German dual study (Ausbildung) pathways.',
-    img: '/images/tutor-marcus.jpg',
+    img: '/images/team-1.jpg',
   },
   {
     name: 'Amanda Setiawan, B.Bus',
     role: 'Head of Australia & Work Pathways',
     bio: 'Alumna of University of Sydney specializing in vocational placement and student visas.',
-    img: '/images/tutor-elena.jpg',
+    img: '/images/team-1.jpg',
   },
 ]
 
@@ -280,7 +280,8 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {teamMembers.map((m, idx) => (
               <Reveal key={m.name} delay={idx * 80}>
-                <div className="bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden flex flex-col justify-between h-full">
+                {/* Tambahkan class 'group' di div ini */}
+                <div className="group bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden flex flex-col justify-between h-full">
                   <div className="relative h-60 w-full overflow-hidden bg-gray-100">
                     <Image
                       src={m.img}
@@ -303,11 +304,9 @@ export default function AboutPage() {
 
       {/* ── 6. CTA BANNER ── */}
       <CTABanner
-        eyebrow={t.aboutPage.ctaEyebrow}
-        headline={t.aboutPage.ctaHeadline}
-        subtext={t.aboutPage.ctaSubtext}
-        primaryLabel={t.common.talkToUs}
-        primaryHref="https://wa.me/6281297654332"
+        eyebrow={t.home.ctaEyebrow}
+        headline={t.home.ctaHeadline}
+        subtext={t.home.ctaSubtext}
       />
     </div>
   )

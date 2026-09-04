@@ -747,9 +747,6 @@ export default function HomePage() {
         eyebrow={t.home.ctaEyebrow}
         headline={t.home.ctaHeadline}
         subtext={t.home.ctaSubtext}
-        primaryLabel={t.home.ctaPrimary}
-        primaryHref="https://wa.me/6281297654332"
-        showImage={true}
       />
     </div>
   )

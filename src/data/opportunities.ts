@@ -1,5 +1,4 @@
-// src/data/opportunities.ts
-import type { ProgramData, CountryData } from '@/types'
+import type { ProgramData, CountryData, Stat, Testimonial } from '@/types'
 
 // ─── Country Data (Study Abroad) ──────────────────────────────
 export const countriesData: CountryData[] = [
@@ -332,4 +331,104 @@ export function getCountryBySlug(slug: string): CountryData | undefined {
 
 export function getOpportunityBySlug(slug: string): ProgramData | undefined {
   return opportunitiesPrograms.find((p) => p.slug === slug)
+}
+
+// ─── Unified Data Structure for /study-work/[slug] ──────────────
+
+export interface UnifiedStudyWorkDetail {
+  slug: string
+  title: string
+  titleEn?: string
+  subtitle: string
+  subtitleEn?: string
+  heroImage: string
+  badge: string
+  badgeEn?: string
+  type: 'country' | 'program'
+  stats: Stat[]
+  benefits: string[]
+  requirements?: string[]
+  steps: { step: number | string; title: string; desc: string }[]
+  universities?: string[]
+  modules?: { title: string; items: string[] }[]
+  testimonials: Testimonial[]
+}
+
+// Slug Aliases (e.g. from legacy WordPress redirects)
+const SLUG_ALIASES: Record<string, string> = {
+  'kuliah-di-australia': 'australia',
+  'kuliah-di-german': 'germany',
+  'studi-sambil-kerja': 'study-and-work',
+  'studi-keluar-negeri': 'study-and-work',
+}
+
+export function getAllStudyWorkSlugs(): string[] {
+  const baseSlugs = [
+    ...countriesData.map((c) => c.slug),
+    ...opportunitiesPrograms.map((p) => p.slug),
+    ...Object.keys(SLUG_ALIASES),
+  ]
+  return Array.from(new Set(baseSlugs))
+}
+
+export function getUnifiedStudyWorkDetail(rawSlug: string): UnifiedStudyWorkDetail | undefined {
+  const slug = SLUG_ALIASES[rawSlug] || rawSlug
+
+  // 1. Check Country
+  const country = getCountryBySlug(slug)
+  if (country) {
+    return {
+      slug: rawSlug,
+      title: `Studi & Karier di ${country.name}`,
+      titleEn: `Study & Career Pathways in ${country.name}`,
+      subtitle: country.description || country.desc || '',
+      subtitleEn: `Explore accredited university admissions, student work rights, and post-study opportunities in ${country.name}.`,
+      heroImage: country.slug === 'australia'
+        ? '/images/hero-study-work.jpg'
+        : country.slug === 'germany'
+        ? '/images/lang-german.jpg'
+        : '/images/hero-about.jpg',
+      badge: `${country.name.toUpperCase()} PATHWAY`,
+      badgeEn: `${country.name.toUpperCase()} DESTINATION`,
+      type: 'country',
+      stats: country.stats,
+      benefits: country.benefits || [
+        'Akses ke universitas berperingkat dunia (Top 100 QS)',
+        'Izin kerja legal selama studi berlangsung',
+        'Peluang visa kerja pascastudi (Post-Study Work Visa)',
+        'Dukungan penuh tim IDEA dari aplikasi hingga on-arrival',
+      ],
+      requirements: country.requirements,
+      steps: country.steps || [],
+      universities: country.universities,
+      testimonials: country.testimonials || [],
+    }
+  }
+
+  // 2. Check Opportunity / Program
+  const program = getOpportunityBySlug(slug)
+  if (program) {
+    return {
+      slug: rawSlug,
+      title: program.title,
+      titleEn: program.title === 'Study & Work' ? 'Study & Work International' : program.title,
+      subtitle: program.subtitle,
+      subtitleEn: `Comprehensive preparation, language coaching, placement matching, and visa guidance for ${program.title}.`,
+      heroImage: program.slug === 'study-and-work'
+        ? '/images/hero-study-work.jpg'
+        : program.slug === 'work-abroad'
+        ? '/images/hero-graduates.jpg'
+        : '/images/hero-vocational.jpg',
+      badge: `${program.title.toUpperCase()} PROGRAM`,
+      badgeEn: `${program.title.toUpperCase()} PATHWAY`,
+      type: 'program',
+      stats: program.stats,
+      benefits: program.benefits.map((b) => `${b.title}: ${b.desc}`),
+      steps: program.steps || [],
+      modules: program.modules,
+      testimonials: program.testimonials || [],
+    }
+  }
+
+  return undefined
 }

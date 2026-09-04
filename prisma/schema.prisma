@@ -1,0 +1,106 @@
+// prisma/schema.prisma — IDEA Institut Database
+// Sesuai ERD di docs/erd.md
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Enums ──────────────────────────────────────────────────────
+
+enum LeadStatus {
+  new
+  contacted
+  qualified
+  closed
+}
+
+enum AdminRole {
+  admin
+  viewer
+}
+
+// ─── Models ─────────────────────────────────────────────────────
+
+model ProgramCategory {
+  id          String    @id @default(uuid()) @db.Uuid
+  slug        String    @unique @db.VarChar(100)
+  name        String    @db.VarChar(200)
+  description String?   @db.Text
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+  programs    Program[]
+
+  @@map("program_categories")
+}
+
+model Program {
+  id          String    @id @default(uuid()) @db.Uuid
+  categoryId  String    @map("category_id") @db.Uuid
+  slug        String    @unique @db.VarChar(100)
+  name        String    @db.VarChar(200)
+  country     String?   @db.VarChar(10)
+  description String?   @db.Text
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+  category    ProgramCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  leads       Lead[]
+
+  @@map("programs")
+}
+
+model Lead {
+  id              String     @id @default(uuid()) @db.Uuid
+  fullName        String     @map("full_name") @db.VarChar(200)
+  email           String     @db.VarChar(255)
+  phoneWhatsapp   String     @map("phone_whatsapp") @db.VarChar(30)
+  programId       String?    @map("program_id") @db.Uuid
+  programInterest String?    @map("program_interest") @db.VarChar(200)
+  sourcePage      String?    @map("source_page") @db.VarChar(500)
+  utmSource       String?    @map("utm_source") @db.VarChar(100)
+  utmMedium       String?    @map("utm_medium") @db.VarChar(100)
+  utmCampaign     String?    @map("utm_campaign") @db.VarChar(100)
+  status          LeadStatus @default(new)
+  notes           String?    @db.Text
+  consentGiven    Boolean    @default(false) @map("consent_given")
+  ipHash          String?    @map("ip_hash") @db.VarChar(64)
+  createdAt       DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime   @updatedAt @map("updated_at") @db.Timestamptz
+  program         Program?   @relation(fields: [programId], references: [id], onDelete: SetNull)
+
+  @@map("leads")
+}
+
+model AdminUser {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique @db.VarChar(255)
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  role         AdminRole @default(admin)
+  lastLoginAt  DateTime? @map("last_login_at") @db.Timestamptz
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("admin_users")
+}
+
+model Page {
+  id              String    @id @default(uuid()) @db.Uuid
+  slug            String    @unique @db.VarChar(200)
+  title           String    @db.VarChar(500)
+  contentJson     Json      @map("content_json") @db.JsonB
+  metaTitle       String?   @map("meta_title") @db.VarChar(200)
+  metaDescription String?   @map("meta_description") @db.VarChar(500)
+  publishedAt     DateTime? @map("published_at") @db.Timestamptz
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("pages")
+}

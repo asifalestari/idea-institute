@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# IDEA Institut — Website
 
-## Getting Started
+Upgrade website [idea-institut.net](https://idea-institut.net) dari WordPress ke Next.js + PostgreSQL.
 
-First, run the development server:
+## Struktur
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+src/app/                — Next.js App Router pages
+src/components/         — Reusable UI components
+  layout/               — Navbar, Footer, LanguageToggle
+  sections/             — HeroSection, CTABanner, ProgramCards, dll
+  ui/                   — Badge, Button, Reveal, SectionHeading
+src/data/               — Static data (courses, translations, team, dll)
+src/context/            — LanguageContext (ID/EN toggle)
+src/types/              — Shared TypeScript types
+public/images/          — Foto hero, team, language course
+docs/                   — Dokumentasi migrasi & go-live
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quick Start
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# 1. Install dependencies
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# 2. (Opsional) Jalankan PostgreSQL lokal via Docker
+npm run db:up
 
-## Learn More
+# 3. (Opsional) Migrasi schema & seed data master
+npm run db:migrate
+npm run db:seed
 
-To learn more about Next.js, take a look at the following resources:
+# 4. Jalankan development server
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Frontend: http://localhost:3000
+- API Endpoint: `POST /api/leads`
+- Prisma Studio: `npm run db:studio` (GUI Database Viewer)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Halaman
 
-## Deploy on Vercel
+| Path | Keterangan |
+|------|------------|
+| `/` | Homepage |
+| `/about` | Tentang IDEA Institut |
+| `/language-course` | Daftar kursus bahasa |
+| `/language-course/[slug]` | Detail kursus bahasa |
+| `/vocational-course` | Kursus vokasional |
+| `/study-work` | Program Study & Work |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend:** Vercel, root directory `./`
+- **Domain:** `idea-institut.net`
+
+Lihat [`docs/golive-checklist.md`](docs/golive-checklist.md) untuk langkah cutover lengkap.

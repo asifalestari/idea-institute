@@ -1,12 +1,14 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import Reveal from '@/components/ui/Reveal'
 import CTABanner from '@/components/sections/CTABanner'
 import { useLanguage } from '@/context/LanguageContext'
 
 const destinations = [
   {
+    slug: 'germany',
     title: 'Germany',
     tagline: 'Europe’s Economic Engine',
     desc: 'World-class tuition-free university options, dual study-work systems, and 18-month post-study job seeker visa.',
@@ -19,6 +21,7 @@ const destinations = [
     features: ['Tuition-Free / Low Cost', '18-Month Work Visa', 'Dual Vocational (Ausbildung)'],
   },
   {
+    slug: 'australia',
     title: 'Australia',
     tagline: 'Global Lifestyle & Top Universities',
     desc: 'High-quality education, flexible student working hours, high minimum wage, and generous post-study work rights.',
@@ -31,6 +34,7 @@ const destinations = [
     features: ['Flexible Work Rights', 'Post-Study Work Visas', 'Top 100 World Universities'],
   },
   {
+    slug: 'other-oecd',
     title: 'Other OECD Destinations',
     tagline: 'Worldwide Horizons',
     desc: 'Explore customized pathways in Japan, UK, and leading OECD nations with our certified educational network.',
@@ -340,16 +344,20 @@ export default function StudyWorkPage() {
                       ))}
                     </div>
 
-                    {/* Action Button */}
-                    <div className="pt-4">
+                    {/* Action Buttons */}
+                    <div className="pt-4 grid grid-cols-2 gap-2">
+                      <Link
+                        href={`/study-work/${dest.slug}`}
+                        className="inline-flex items-center justify-center gap-1 px-4 py-3 rounded-2xl text-xs font-bold text-[#002798] bg-blue-50 hover:bg-blue-100 transition-all duration-200"
+                      >
+                        <span>{t.common.learnMore}</span>
+                        <span>&rarr;</span>
+                      </Link>
                       <a
-                        href="https://wa.me/6281297654332"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-xs font-bold text-white bg-[#002798] hover:bg-[#001a6e] shadow-sm hover:shadow group-hover:bg-[#DC1E13] transition-all duration-200"
+                        href="#contact-info"
+                        className="inline-flex items-center justify-center gap-1 px-4 py-3 rounded-2xl text-xs font-bold text-white bg-[#002798] hover:bg-[#DC1E13] shadow-sm transition-all duration-200"
                       >
                         <span>{t.common.consultFree}</span>
-                        <span>&rarr;</span>
                       </a>
                     </div>
                   </div>
@@ -381,11 +389,9 @@ export default function StudyWorkPage() {
 
       {/* ── 5. CTA BANNER ── */}
       <CTABanner
-        eyebrow={t.studyWorkPage.ctaEyebrow}
-        headline={t.studyWorkPage.ctaHeadline}
-        subtext={t.studyWorkPage.ctaSubtext}
-        primaryLabel={t.common.scheduleAdvisor}
-        primaryHref="https://wa.me/6281297654332"
+        eyebrow={t.home.ctaEyebrow}
+        headline={t.home.ctaHeadline}
+        subtext={t.home.ctaSubtext}
       />
     </div>
   )

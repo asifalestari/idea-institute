@@ -334,11 +334,9 @@ export default function LanguageCoursePage() {
 
       {/* ── 4. CTA BANNER ── */}
       <CTABanner
-        eyebrow={t.languagePage.ctaEyebrow}
-        headline={t.languagePage.ctaHeadline}
-        subtext={t.languagePage.ctaSubtext}
-        primaryLabel={t.common.talkToUs}
-        primaryHref="https://wa.me/6281297654332"
+        eyebrow={t.home.ctaEyebrow}
+        headline={t.home.ctaHeadline}
+        subtext={t.home.ctaSubtext}
       />
     </div>
   )
