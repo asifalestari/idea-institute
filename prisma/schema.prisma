@@ -61,7 +61,7 @@ model Lead {
   id              String     @id @default(uuid()) @db.Uuid
   fullName        String     @map("full_name") @db.VarChar(200)
   email           String     @db.VarChar(255)
-  phoneWhatsapp   String     @map("phone_whatsapp") @db.VarChar(30)
+  phoneWhatsapp   String?    @map("phone_whatsapp") @db.VarChar(30)
   programId       String?    @map("program_id") @db.Uuid
   programInterest String?    @map("program_interest") @db.VarChar(200)
   sourcePage      String?    @map("source_page") @db.VarChar(500)

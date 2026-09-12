@@ -1,5 +1,8 @@
 'use client'
 
+// src/components/layout/Footer.tsx
+// Footer IDEA Institut — Diselaraskan dengan rute internal Next.js 3 Program Utama
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -63,12 +66,11 @@ export default function Footer() {
 
   return (
     <footer className="bg-white text-gray-700 border-t border-gray-100">
-      {/* ── Footer Columns ─────────────────────────────────────────── */}
       <div className="pt-16 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-12 border-b border-gray-100">
 
-            {/* Col 1: Logo & Mission (Span 4) */}
+            {/* Col 1: Logo & Mission */}
             <div className="md:col-span-4 space-y-4">
               <Link href="/" className="inline-block">
                 <Image
@@ -82,7 +84,6 @@ export default function Footer() {
               <p className="text-xs text-gray-600 leading-relaxed max-w-sm">
                 {t.footer.desc}
               </p>
-              {/* Social Media Icons */}
               <div className="flex items-center gap-3 pt-2">
                 {socialLinks.map((s) => (
                   <a
@@ -99,17 +100,29 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Col 2: Programs (Span 2) */}
+            {/* Col 2: Programs (Menggunakan Link Rute Internal Next.js) */}
             <div className="md:col-span-2 space-y-3">
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">{t.footer.programs}</h4>
               <ul className="space-y-3 text-xs text-gray-600">
-                <li><Link href="/language-course" className="hover:text-[#002798] transition-colors">{t.nav.languageCourse}</Link></li>
-                <li><Link href="/vocational-course" className="hover:text-[#002798] transition-colors">{t.nav.vocationalCourse}</Link></li>
-                <li><Link href="/study-work" className="hover:text-[#002798] transition-colors">{t.nav.studyWork}</Link></li>
+                <li>
+                  <Link href="https://www.ialc.org/" className="hover:text-[#002798] transition-colors">
+                    Language Course
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/vocational-course/australia" className="hover:text-[#002798] transition-colors">
+                    {t.nav.vocationalCourse}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/study-work" className="hover:text-[#002798] transition-colors">
+                    {t.nav.studyWork}
+                  </Link>
+                </li>
               </ul>
             </div>
 
-            {/* Col 3: Resources (Span 2) */}
+            {/* Col 3: Resources */}
             <div className="md:col-span-2 space-y-3">
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">{t.footer.quickLinks}</h4>
               <ul className="space-y-3 text-xs text-gray-600">
@@ -119,7 +132,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Col 4 & 5: Contact & Info (Span 4) */}
+            {/* Col 4 & 5: Contact & Info */}
             <div className="md:col-span-4 space-y-3">
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">{t.footer.contactUs}</h4>
               <ul className="space-y-3 text-xs text-gray-600">

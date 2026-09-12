@@ -301,13 +301,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* ── 6. CTA BANNER ── */}
-      <CTABanner
-        eyebrow={t.home.ctaEyebrow}
-        headline={t.home.ctaHeadline}
-        subtext={t.home.ctaSubtext}
-      />
     </div>
   )
 }

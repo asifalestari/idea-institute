@@ -1,7 +1,7 @@
 'use client'
 
 // src/app/admin/layout.tsx
-// Shell layout for Admin Dashboard
+// Shell layout for Admin Dashboard — Clean & Professional Light Theme
 
 import { useState } from 'react'
 import Image from 'next/image'
@@ -13,45 +13,50 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // Don't show sidebar on login page
-  if (pathname === '/admin/login') {
+  // Don't show sidebar on login root page
+  if (pathname === '/admin') {
     return <>{children}</>
   }
 
   async function handleLogout() {
     try {
       await fetch('/api/admin/auth/logout', { method: 'POST' })
+    } catch {
+      // ignore network errors on logout
     } finally {
-      router.push('/admin/login')
+      router.push('/admin')
       router.refresh()
     }
   }
 
   const navItems = [
-    { label: 'Leads Intake', href: '/admin/leads', icon: '📋' },
+    { label: 'Dashboard User', href: '/admin/leads', icon: '📋' },
+    { label: 'CMS Konten Web', href: '/admin/cms', icon: '📝' },
     { label: 'Public Website', href: '/', icon: '🌐' },
   ]
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col md:flex-row font-sans text-gray-900">
-      {/* ── Sidebar (Desktop) ── */}
-      <aside className="hidden md:flex md:w-64 bg-[#0A1847] text-white flex-col justify-between shrink-0 shadow-xl border-r border-blue-900/40 h-screen sticky top-0">
+      {/* ── Sidebar (Desktop) - Clean Light Theme ── */}
+      <aside className="hidden md:flex md:w-64 bg-white text-gray-800 flex-col justify-between shrink-0 shadow-xs border-r border-gray-100 h-screen sticky top-0">
         <div className="p-6 space-y-8">
-          {/* Brand Logo */}
-          <Link href="/admin/leads" className="flex items-center gap-3">
-            <Image
-              src="/logo-IDEA-HD-fixed-600x96.svg"
-              alt="IDEA Institut"
-              width={160}
-              height={30}
-              className="h-7 w-auto brightness-0 invert"
-            />
-          </Link>
+          {/* Brand Logo Container (Tanpa Inverted, Logo Asli Berwarna) */}
+          <div className="p-3 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-center">
+            <Link href="/admin/leads">
+              <Image
+                src="/logo-IDEA-HD-fixed-600x96.svg"
+                alt="IDEA Institut"
+                width={140}
+                height={26}
+                className="h-6 w-auto"
+              />
+            </Link>
+          </div>
 
           {/* Navigation Links */}
           <nav className="space-y-1.5">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-blue-300/60 px-3 mb-2">
-              Main Menu
+            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 px-3 mb-3">
+              Menu Utama
             </p>
             {navItems.map((item) => {
               const active = pathname === item.href
@@ -59,9 +64,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${active
-                    ? 'bg-[#F4A019] text-gray-950 shadow-md'
-                    : 'text-blue-100 hover:bg-white/10 hover:text-white'
+                  className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all ${active
+                    ? 'bg-[#002798] text-white shadow-sm font-extrabold'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                     }`}
                 >
                   <span className="text-base">{item.icon}</span>
@@ -73,41 +78,41 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         {/* User Info & Logout */}
-        <div className="p-6 border-t border-white/10 space-y-4 bg-[#0A1847]">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#F4A019] text-gray-950 font-black flex items-center justify-center text-xs shadow-sm">
+        <div className="p-6 border-t border-gray-100 space-y-4 bg-white">
+          <div className="flex items-center gap-3 px-1">
+            <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-800 font-black flex items-center justify-center text-xs shadow-2xs shrink-0">
               AD
             </div>
             <div className="overflow-hidden">
-              <p className="text-xs font-bold text-white truncate">Admin User</p>
-              <p className="text-[10px] text-blue-300/80 truncate">admin@idea-institut.net</p>
+              <p className="text-xs font-bold text-gray-900 truncate">Admin Portal</p>
+              <p className="text-[10px] text-gray-400 truncate">admin@idea-institut.net</p>
             </div>
           </div>
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold text-red-300 bg-red-500/15 hover:bg-red-500/25 border border-red-400/20 transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3.5 py-3 rounded-xl text-xs font-extrabold text-[#DC1E13] bg-red-50 hover:bg-red-100 border border-red-100 transition-all cursor-pointer"
           >
             <span>🚪</span>
-            <span>Logout</span>
+            <span>Keluar (Logout)</span>
           </button>
         </div>
       </aside>
 
       {/* ── Mobile Header ── */}
-      <header className="md:hidden bg-[#0A1847] text-white p-4 flex items-center justify-between shadow-md">
+      <header className="md:hidden bg-white text-gray-800 p-4 flex items-center justify-between shadow-xs border-b border-gray-100">
         <Link href="/admin/leads">
           <Image
             src="/logo-IDEA-HD-fixed-600x96.svg"
             alt="IDEA Institut"
-            width={130}
-            height={24}
-            className="h-6 w-auto brightness-0 invert"
+            width={120}
+            height={22}
+            className="h-5 w-auto"
           />
         </Link>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 rounded-lg bg-white/10 text-white"
+          className="p-2 rounded-xl bg-gray-100 text-gray-700 text-sm font-bold"
         >
           {mobileMenuOpen ? '✕' : '☰'}
         </button>
@@ -115,13 +120,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0A1847] text-white px-4 py-4 space-y-3 border-b border-white/10">
+        <div className="md:hidden bg-white text-gray-800 px-4 py-4 space-y-2 border-b border-gray-100 shadow-md">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-blue-100"
+              className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-100"
             >
               <span>{item.icon}</span>
               <span>{item.label}</span>
@@ -129,10 +134,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ))}
           <button
             onClick={handleLogout}
-            className="w-full text-left flex items-center gap-2 px-3 py-2 text-xs font-bold text-red-300"
+            className="w-full text-left flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold text-[#DC1E13] bg-red-50 mt-2"
           >
             <span>🚪</span>
-            <span>Logout</span>
+            <span>Keluar (Logout)</span>
           </button>
         </div>
       )}
