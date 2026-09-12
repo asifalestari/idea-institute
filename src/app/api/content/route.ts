@@ -1,5 +1,5 @@
 // src/app/api/content/route.ts
-// API route untuk mengambil (GET) dan menyimpan (PUT) data CMS Portal 3 Program
+// API route untuk mengambil (GET), menyimpan (PUT), dan menguji email (POST) data CMS Portal
 
 import { NextRequest, NextResponse } from 'next/server'
 import { getPortalCMSData, savePortalCMSData, PortalCMSData } from '@/lib/cms'
@@ -43,34 +43,50 @@ export async function PUT(request: NextRequest) {
   }
 }
 
-// Endpoint opsional untuk testing kirim notifikasi email dari CMS panel
+// Endpoint POST untuk testing kirim notifikasi email dari CMS panel
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    if (body.action === 'test-email') {
-      const cms = await getPortalCMSData()
-      const targetEmail = body.email || cms.settings.adminNotificationEmail
+    const { action, email } = body
 
-      const result = await sendAdminLeadNotification({
+    if (action === 'test-email') {
+      // Ambil data CMS saat ini untuk fallback email admin jika parameter email kosong
+      const currentCMS = await getPortalCMSData()
+      const targetEmail = email || currentCMS.settings.adminNotificationEmail || 'admin@idea-institut.net'
+
+      // Panggil fungsi kirim email dengan menyertakan leadId dummy
+      const emailResult = await sendAdminLeadNotification({
         adminEmail: targetEmail,
-        fullName: 'Calon Mahasiswa (Uji Coba)',
-        email: 'pengunjung.test@example.com',
-        sourcePage: '/ (Uji Coba Panel Admin CMS)',
-        programInterest: 'English Course & VET Testing',
+        fullName: 'Uji Coba Admin CMS',
+        email: targetEmail,
+        sourcePage: '/admin/cms',
+        programInterest: 'Test Email Konfigurasi Sistem',
+        leadId: 'TEST-LEAD-ID-000',
       })
+
+      // Periksa apakah Resend mengembalikan error
+      if (emailResult.error) {
+        return NextResponse.json({
+          success: false,
+          message: `Gagal mengirim email via Resend: ${emailResult.error.message}`
+        }, { status: 400 })
+      }
 
       return NextResponse.json({
-        success: result.success,
-        simulated: result.simulated,
-        message: result.simulated
-          ? `Kredensial SMTP belum disetup di .env; simulasi notifikasi berhasil dicatat untuk <${targetEmail}>.`
-          : `Email uji coba berhasil dikirim ke <${targetEmail}>!`,
-      })
+        success: true,
+        message: 'Email uji coba berhasil dikirim ke ' + targetEmail
+      }, { status: 200 })
     }
 
-    return NextResponse.json({ success: false, message: 'Aksi tidak dikenali.' }, { status: 400 })
-  } catch (error) {
-    console.error('[API_CONTENT_POST_ERROR]', error)
-    return NextResponse.json({ success: false, message: 'Gagal mengirim email tes.' }, { status: 500 })
+    return NextResponse.json(
+      { success: false, message: 'Aksi tidak dikenal.' },
+      { status: 400 }
+    )
+  } catch (err: any) {
+    console.error('[API_CONTENT_POST_ERROR]', err)
+    return NextResponse.json({
+      success: false,
+      message: err.message || 'Terjadi kesalahan saat mengirim email tes.'
+    }, { status: 500 })
   }
 }
