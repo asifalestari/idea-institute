@@ -329,7 +329,7 @@ export default function HomePage() {
             {/* 3 Main Program Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
 
-              {/* ── CARD 1: LANGUAGE COURSE ── */}
+              {/* ── CARD 1: LANGUAGE COURSE (EXTERNAL LINK FIXED) ── */}
               <div className="bg-[#F8F9FE] border border-blue-100/80 rounded-[20px] overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300">
                 <div className="space-y-5">
                   <div className="relative h-60 w-full overflow-hidden">
@@ -357,18 +357,19 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Garis Pembatas + Tombol */}
+                {/* Garis Pembatas + Tombol Eksternal ke IALC */}
                 <div className="p-6 pt-4">
                   <div className="border-t border-blue-100/80 mb-4" />
-                  <Link
-                    href="/language-course"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#002798] hover:gap-2.5 transition-all"
+                  <a
+                    href="https://www.ialc.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#002798] hover:gap-2.5 transition-all cursor-pointer"
                   >
                     <span>{text.langLink}</span>
-                  </Link>
+                  </a>
                 </div>
               </div>
-
               {/* ── CARD 2: VOCATIONAL COURSE ── */}
               <div className="bg-[#FCFBF4] border border-amber-100/80 rounded-[20px] overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300">
                 <div className="space-y-5">
