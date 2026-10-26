@@ -31,25 +31,25 @@ export default function OECDVocationalPage() {
         slides: [
             {
                 id: 1,
-                src: '/images/slides/slide-1.png',
+                src: '/images/hero-study-work.jpg',
                 title: language === 'en' ? 'Study Pathway (Step 1 & 2)' : 'Alur Studi (Langkah 1 & 2)',
                 caption: language === 'en' ? 'Selection in ID, Bridging Program, & Further Program' : 'Seleksi di Indonesia, Bridging Program, hingga Further Program.',
             },
             {
                 id: 2,
-                src: '/images/slides/slide-2.png',
+                src: '/images/hero-graduates.jpg',
                 title: language === 'en' ? 'Step 1: Bridging Program' : 'Langkah 1: Bridging Program',
                 caption: language === 'en' ? 'Language Course (B1/B2/IELTS) & Vocational Hands-On Training' : 'Persiapan Bahasa (German/English), Foundation & Training 6-12 Bulan.',
             },
             {
                 id: 3,
-                src: '/images/slides/slide-3.png',
+                src: '/images/hero-about.jpg',
                 title: language === 'en' ? 'Step 2: Further Program' : 'Langkah 2: Program Lanjut',
                 caption: language === 'en' ? 'Bachelor/Master, Study&Work, Dual Program, & Ausbildung' : 'Program Kuliah/Studi Lanjut di Australia/Jerman (Bachelor/Master & Dual).',
             },
             {
                 id: 4,
-                src: '/images/slides/slide-4.png',
+                src: '/images/hero-vocational.jpg',
                 title: language === 'en' ? 'Study Pathway Diagram' : 'Skema Alur Studi Detail',
                 caption: language === 'en' ? 'Comprehensive flowchart for SMA/SMK/S1/S2 graduates' : 'Skema integrasi lulusan SMA/SMK/S1/S2 menuju University & Vokasi.',
             },
@@ -218,34 +218,30 @@ export default function OECDVocationalPage() {
 
     return (
         <div className="bg-white font-sans overflow-x-hidden">
-            {/* CSS Animasi Marquee Seamless */}
             <style jsx global>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee-smooth {
-          display: flex;
-          width: max-content;
-          animation: marquee 40s linear infinite;
-        }
-        .animate-marquee-smooth:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
+                @keyframes marquee {
+                  0% { transform: translateX(0%); }
+                  100% { transform: translateX(-50%); }
+                }
+                .animate-marquee-smooth {
+                  display: flex;
+                  width: max-content;
+                  animation: marquee 40s linear infinite;
+                }
+                .animate-marquee-smooth:hover {
+                  animation-play-state: paused;
+                }
+            `}</style>
 
             {/* ── 1. HERO SECTION ── */}
             <section className="pt-28 pb-20 md:pt-36 md:pb-24 bg-[#FCFBF4]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-
-                        {/* Teks Kiri */}
                         <div className="lg:col-span-7 space-y-6">
                             <Reveal delay={80}>
                                 <span className="inline-block px-4 py-1.5 rounded-full bg-amber-50 text-[#D97706] text-[11px] font-black uppercase tracking-wider border border-amber-200/80">
                                     {text.badge}
                                 </span>
-
                                 <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-black text-gray-900 tracking-normal leading-[1.25] mt-4">
                                     {text.title1} <br />
                                     <span className="text-[#D97706] tracking-normal">{text.title2}</span>
@@ -289,7 +285,6 @@ export default function OECDVocationalPage() {
                             </Reveal>
                         </div>
 
-                        {/* Gambar Kanan Carousel */}
                         <div className="lg:col-span-5 flex justify-center lg:justify-end">
                             <Reveal delay={200} className="relative w-full max-w-md">
                                 <div className="relative">
@@ -297,8 +292,7 @@ export default function OECDVocationalPage() {
                                         {heroImages.map((imgUrl, index) => (
                                             <div
                                                 key={imgUrl}
-                                                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentHeroIdx ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                                                    }`}
+                                                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentHeroIdx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                                             >
                                                 <Image
                                                     src={imgUrl}
@@ -325,15 +319,13 @@ export default function OECDVocationalPage() {
                                                     <button
                                                         key={i}
                                                         onClick={() => setCurrentHeroIdx(i)}
-                                                        className={`h-2 rounded-full transition-all ${i === currentHeroIdx ? 'w-6 bg-[#D97706]' : 'w-2 bg-white/60'
-                                                            }`}
+                                                        className={`h-2 rounded-full transition-all ${i === currentHeroIdx ? 'w-6 bg-[#D97706]' : 'w-2 bg-white/60'}`}
                                                     />
                                                 ))}
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Floating Badges */}
                                     <div className="absolute -top-4 -left-6 bg-white/95 backdrop-blur-md text-gray-900 px-4 py-3 rounded-2xl shadow-xl border border-amber-100 flex items-center gap-3 z-30">
                                         <div className="w-8 h-8 rounded-xl bg-amber-50 text-[#D97706] flex items-center justify-center text-sm font-bold shrink-0">
                                             🌐
@@ -356,12 +348,11 @@ export default function OECDVocationalPage() {
                                 </div>
                             </Reveal>
                         </div>
-
                     </div>
                 </div>
             </section>
 
-            {/* ── 2. MARQUEE 10 ALASAN (OPSIONAL CMS: SHOWREASONS) ── */}
+            {/* ── 2. MARQUEE 10 ALASAN ── */}
             {cmsConfig.showReasons && (
                 <section id="alasan-utama" className="py-20 bg-white overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center space-y-3">
@@ -370,11 +361,9 @@ export default function OECDVocationalPage() {
                                 {text.reasonsBadge}
                             </span>
                         </div>
-
                         <h2 className="text-2xl sm:text-4xl font-black text-gray-900 tracking-normal">
                             {text.reasonsTitle}
                         </h2>
-
                         {cmsConfig.reasonsSubtitle && (
                             <p className="text-xs sm:text-sm text-gray-600 max-w-xl mx-auto leading-relaxed pt-1">
                                 {cmsConfig.reasonsSubtitle}
@@ -382,7 +371,6 @@ export default function OECDVocationalPage() {
                         )}
                     </div>
 
-                    {/* Marquee Track Seamless */}
                     <div className="animate-marquee-smooth gap-6 px-4">
                         {[...tenReasons, ...tenReasons].map((item, idx) => (
                             <div
@@ -413,7 +401,6 @@ export default function OECDVocationalPage() {
             {cmsConfig.showSlidePresentation && (
                 <section id="slide-presentation" className="py-20 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-
                         <Reveal>
                             <div className="text-center space-y-3">
                                 <span className="inline-block px-4 py-1.5 rounded-full bg-amber-50 text-[#D97706] text-[11px] font-black uppercase tracking-wider border border-amber-200/80">
@@ -422,7 +409,6 @@ export default function OECDVocationalPage() {
                                 <h2 className="text-2xl sm:text-3xl font-black text-gray-900 tracking-normal">
                                     {text.slidesTitle}
                                 </h2>
-
                                 {cmsConfig.slidesSubtitle && (
                                     <p className="text-xs sm:text-sm text-gray-500 max-w-2xl mx-auto leading-relaxed pt-1">
                                         {cmsConfig.slidesSubtitle}
@@ -431,36 +417,33 @@ export default function OECDVocationalPage() {
                             </div>
                         </Reveal>
 
-                        {/* Split Grid 8-4 Layout Clean */}
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
-                            {/* Display Utama Kiri (8/12) */}
+                            {/* Display Utama Kiri (8/12) - Menggunakan object-cover dan padding proporsional */}
                             <div className="lg:col-span-8 space-y-4">
-                                <div className="relative w-full h-80 sm:h-[460px] rounded-[24px] overflow-hidden bg-gray-50 shadow-sm border border-gray-200/80 group">
+                                <div className="relative w-full h-80 sm:h-[480px] rounded-[24px] overflow-hidden bg-gray-900 shadow-md border border-gray-200/80 group">
                                     <Image
                                         src={cmsConfig.slides[activeSlideIdx].src}
                                         alt={cmsConfig.slides[activeSlideIdx].title}
                                         fill
-                                        className="object-contain p-2"
+                                        className="object-cover transition-all duration-500"
                                         priority
                                     />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                                    {/* Panah Prev / Next */}
                                     <button
                                         onClick={() => setActiveSlideIdx((prev) => (prev > 0 ? prev - 1 : cmsConfig.slides.length - 1))}
-                                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-[#D97706] transition-all shadow-md"
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#D97706] transition-all shadow-md"
                                     >
                                         ‹
                                     </button>
                                     <button
                                         onClick={() => setActiveSlideIdx((prev) => (prev < cmsConfig.slides.length - 1 ? prev + 1 : 0))}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-[#D97706] transition-all shadow-md"
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#D97706] transition-all shadow-md"
                                     >
                                         ›
                                     </button>
                                 </div>
 
-                                {/* Caption Slide */}
                                 <div className="flex items-center justify-between px-2 pt-1">
                                     <div>
                                         <h3 className="text-sm font-extrabold text-gray-900">
@@ -482,18 +465,16 @@ export default function OECDVocationalPage() {
                                     Daftar Slide ({cmsConfig.slides.length}):
                                 </p>
 
-                                <div className="max-h-[460px] overflow-y-auto space-y-3 pr-1">
+                                <div className="max-h-[480px] overflow-y-auto space-y-3 pr-1">
                                     {cmsConfig.slides.map((slide, idx) => (
                                         <button
                                             key={slide.id}
                                             onClick={() => setActiveSlideIdx(idx)}
                                             className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center gap-3.5 ${activeSlideIdx === idx
                                                 ? 'bg-white border-[#D97706] shadow-md ring-2 ring-amber-100'
-                                                : 'bg-gray-50/80 border-gray-200/70 hover:bg-white hover:border-amber-200'
-                                                }`}
+                                                : 'bg-gray-50/80 border-gray-200/70 hover:bg-white hover:border-amber-200'}`}
                                         >
-                                            <div className={`w-8 h-8 rounded-xl font-black text-xs flex items-center justify-center shrink-0 ${activeSlideIdx === idx ? 'bg-[#D97706] text-white' : 'bg-gray-200 text-gray-600'
-                                                }`}>
+                                            <div className={`w-8 h-8 rounded-xl font-black text-xs flex items-center justify-center shrink-0 ${activeSlideIdx === idx ? 'bg-[#D97706] text-white' : 'bg-gray-200 text-gray-600'}`}>
                                                 {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                                             </div>
                                             <div className="overflow-hidden">
@@ -508,7 +489,6 @@ export default function OECDVocationalPage() {
                                     ))}
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </section>
@@ -517,7 +497,6 @@ export default function OECDVocationalPage() {
             {/* ── 4. FUTURE CAREER SECTION ── */}
             <section id="future-careers" className="py-24 bg-[#FCFBF4]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
                     <Reveal>
                         <div className="text-center mb-16 space-y-4">
                             <span className="inline-block px-4 py-1.5 rounded-full bg-amber-50 text-[#D97706] text-[11px] font-black uppercase tracking-wider border border-amber-200/80">
@@ -532,7 +511,6 @@ export default function OECDVocationalPage() {
                         </div>
                     </Reveal>
 
-                    {/* Grid 4 Kolom Simetris */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                         {oecdFutureCareers.map((career, idx) => (
                             <Reveal key={career.title} delay={idx * 50}>
